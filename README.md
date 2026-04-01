@@ -132,7 +132,7 @@ Aplicações rodando no container são acessíveis diretamente na sua máquina v
 
 ## Referências
 
-- [Artigo original do Akita OnRails](https://www.akitaonrails.com/2025/02/20/do-zero-a-pos-producao-em-1-semana-como-usar-ia-em-projetos-de-verdade) — a base empírica do guia SDD
+- [Artigo original do Akita OnRails](https://akitaonrails.com/2026/02/20/do-zero-a-pos-producao-em-1-semana-como-usar-ia-em-projetos-de-verdade-bastidores-do-the-m-akita-chronicles/) — a base empírica do guia SDD
 - [Documentação oficial do Claude Code](https://docs.claude.com/en/docs/claude-code)
 - [Extensão Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) — para conectar o VS Code ao container
 
