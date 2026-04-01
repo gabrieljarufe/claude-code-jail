@@ -1,28 +1,27 @@
-# Claude Code em Container Docker no Windows
+# Claude Code em Container Docker
 
 > **Parte do projeto [Claude Code Jail](../README.md)** — veja também: [Guia Claude Code](guia-claude-code.md) · [Guia SDD](guia-sdd-claude-code.md)
 
 ## O que você vai ter no final
 
-Um Linux rodando dentro do Docker, persistente como uma VM, onde o Claude Code tem controle total para instalar o que quiser, subir bancos, criar projetos em Go, Python ou Java — tudo acessível pelo VS Code do seu Windows como se fosse uma máquina local.
+Um Linux rodando dentro do Docker, persistente como uma VM, onde o Claude Code tem controle total para instalar o que quiser, subir bancos, criar projetos em Go, Python ou Java — tudo acessível pelo VS Code como se fosse uma máquina local.
 
 ---
 
 ## Pré-requisitos
 
-- Windows com Docker Desktop instalado e **rodando**
+- Docker Desktop (ou Docker Engine no Linux) instalado e **rodando**
 - VS Code instalado
-- Hyper-V ativo (necessário para Docker Desktop)
+- Conta no [claude.ai](https://claude.ai) com plano Pro, Max, Team ou Enterprise
 
-```powershell
-# PowerShell como admin — ativar Hyper-V
-bcdedit /set hypervisorlaunchtype auto
-# Reiniciar o PC após esse comando
-```
+> **Windows — Hyper-V:** Docker Desktop no Windows exige Hyper-V ativo. Ative com PowerShell como admin:
+> ```powershell
+> bcdedit /set hypervisorlaunchtype auto
+> # Reiniciar o PC após esse comando
+> ```
+> Se você usa Valorant ou jogos com anti-cheat, o Hyper-V precisa estar desligado para jogar. Alterne com `bcdedit /set hypervisorlaunchtype off` + reiniciar quando for jogar, e reverta quando for desenvolver.
 
-> **Nota para jogadores:** Se você usa Valorant ou jogos com anti-cheat, o Hyper-V precisa estar desligado para jogar. Alterne com `bcdedit /set hypervisorlaunchtype off` + reiniciar quando for jogar, e reverta quando for desenvolver.
-
-> **Importante:** Antes de qualquer comando Docker, verifique se o Docker Desktop está aberto e com o ícone da baleia ativo na bandeja do sistema (canto inferior direito do Windows). Se não estiver rodando, qualquer comando vai falhar com o erro `The system cannot find the file specified`.
+> **Importante:** Antes de qualquer comando Docker, verifique se o Docker está rodando. No Docker Desktop (Windows/macOS), confira o ícone da baleia na bandeja do sistema. No Linux, verifique com `systemctl status docker`.
 
 ---
 
@@ -34,11 +33,11 @@ Abra o VS Code, pressione `Ctrl+Shift+X`, pesquise `Dev Containers` e instale a 
 
 ## Passo 2 — Criar a estrutura de pastas
 
-Crie a seguinte estrutura. O nome da pasta raiz pode ser qualquer um — neste tutorial usamos `D:\claude-code\`:
+Crie a seguinte estrutura. O nome da pasta raiz pode ser qualquer um — neste tutorial usamos `claude-code-jail/`:
 
 ```
-D:\claude-code\
-├── .devcontainer\
+claude-code-jail/
+├── .devcontainer/
 │   └── devcontainer.json
 ├── Dockerfile
 ├── docker-compose.yml
@@ -166,9 +165,9 @@ volumes:
 
 ## Passo 4 — Build e primeiro boot
 
-Abra o terminal do Windows na pasta do projeto e rode:
+Abra o terminal na pasta do projeto e rode:
 
-```powershell
+```bash
 docker compose up --build
 ```
 
@@ -193,7 +192,7 @@ O container está rodando. **Deixe esse terminal aberto** e siga para o próximo
 
 ## Passo 5 — Conectar pelo VS Code
 
-Abra o VS Code, pressione `Ctrl+Shift+P` e digite:
+Abra o VS Code, pressione `Ctrl+Shift+P` (`Cmd+Shift+P` no macOS) e digite:
 
 ```
 Dev Containers: Attach to Running Container
@@ -201,7 +200,7 @@ Dev Containers: Attach to Running Container
 
 Selecione `claude-jail`. O VS Code vai abrir uma nova janela já dentro do Linux.
 
-Para abrir o terminal integrado pressione `Ctrl+` ` ` (acento grave — a tecla abaixo do `Esc`).
+Para abrir o terminal integrado pressione `` Ctrl+` `` (`` Cmd+` `` no macOS).
 
 Você verá o prompt do Linux:
 
@@ -210,8 +209,8 @@ root@claude-jail:/workspace#
 ```
 
 > **Orientação no terminal Linux:** o símbolo antes do `#` indica onde você está.
-> - `~` significa `/root` (pasta home do usuário root — equivale a `C:\Users\Administrador` no Windows)
-> - `/` significa a raiz do sistema (equivale a `C:\` no Windows)
+> - `~` significa `/root` (pasta home do usuário root)
+> - `/` significa a raiz do sistema
 > - `/workspace` é onde seus projetos ficam
 >
 > Se você se perder, use `cd /workspace` para voltar ao lugar certo.
@@ -253,7 +252,7 @@ Quick safety check: Is this a project you created or one you trust?
 ❯ 1. Yes, I trust this folder
   2. No, exit
 ```
-Selecione **1** — é sua própria pasta, dentro do container isolado do seu Windows.
+Selecione **1** — é sua própria pasta, dentro do container isolado.
 
 ---
 
@@ -266,9 +265,9 @@ Please open this URL in your browser:
 https://claude.ai/oauth/authorize?...
 ```
 
-Copie a URL, abra no navegador do Windows e clique em **Authorize**.
+Copie a URL, abra no navegador e clique em **Authorize**.
 
-> **Problema conhecido com Dev Containers:** após clicar em Authorize, o browser tenta redirecionar para `localhost:PORTA` dentro do container — mas esse endereço não é acessível do Windows. O terminal fica aguardando e nada acontece.
+> **Problema conhecido com Dev Containers:** após clicar em Authorize, o browser tenta redirecionar para `localhost:PORTA` dentro do container — mas esse endereço não é acessível pela máquina host. O terminal fica aguardando e nada acontece.
 
 **Solução:** após clicar em Authorize, olhe a barra de endereços do browser. Vai aparecer uma URL no formato:
 
@@ -331,18 +330,20 @@ Comandos rápidos para referência:
 
 ## Fluxo do dia a dia
 
-```powershell
-# 1. Abrir o Docker Desktop e aguardar a baleia ficar ativa na bandeja
+```bash
+# 1. Garantir que o Docker está rodando
+#    Docker Desktop (Windows/macOS): abrir o app e aguardar a baleia ficar ativa
+#    Linux: systemctl start docker
 
 # 2. Ligar o ambiente
-cd D:\claude-code
+cd claude-code-jail
 docker compose up -d
 
 # 3. Abrir o VS Code
-# Ctrl+Shift+P → Dev Containers: Attach to Running Container → claude-jail
+# Ctrl+Shift+P (Cmd+Shift+P no macOS) → Dev Containers: Attach to Running Container → claude-jail
 
 # 4. Abrir o terminal integrado
-# Ctrl+` (acento grave — tecla abaixo do Esc)
+# Ctrl+` (Cmd+` no macOS)
 
 # 5. Iniciar o Claude Code
 cd /workspace
@@ -354,9 +355,9 @@ docker compose stop
 
 ---
 
-## Portas disponíveis no Windows
+## Portas disponíveis
 
-Qualquer aplicação que o Claude Code subir nessas portas estará acessível diretamente no seu Windows:
+Qualquer aplicação que o Claude Code subir nessas portas estará acessível diretamente na sua máquina host via `localhost`:
 
 | Porta | Uso |
 |-------|-----|
@@ -394,8 +395,8 @@ Para desenvolvimento normal, o plano Pro é suficiente.
 
 ---
 
-## Por que o VS Code no Windows executa tudo no Linux
+## Por que o VS Code executa tudo no Linux
 
-O VS Code instala automaticamente um servidor dentro do container quando você conecta via Dev Containers. A janela do VS Code no Windows é apenas a interface visual — o terminal, os arquivos, as extensões e todo o código executam dentro do Linux no container. É a mesma experiência de estar na frente de uma máquina Linux, mas com a janela no seu Windows.
+O VS Code instala automaticamente um servidor dentro do container quando você conecta via Dev Containers. A janela do VS Code na sua máquina é apenas a interface visual — o terminal, os arquivos, as extensões e todo o código executam dentro do Linux no container. É a mesma experiência de estar na frente de uma máquina Linux, mas com a janela no seu sistema operacional.
 
 As extensões listadas no `devcontainer.json` são instaladas automaticamente no container na primeira conexão — é por isso que a extensão do Claude Code aparece sem você ter instalado manualmente.

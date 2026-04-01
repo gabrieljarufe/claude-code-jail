@@ -1,6 +1,6 @@
 # Claude Code Jail
 
-Ambiente isolado para usar o Claude Code com poder total — sem risco para o seu Windows.
+Ambiente isolado para usar o Claude Code com poder total — sem risco para o seu sistema operacional.
 
 Um container Docker com Linux completo onde o Claude Code opera como agente autônomo: instala dependências, sobe bancos de dados, cria projetos, roda testes e deploya — tudo confinado dentro do container, acessível pelo VS Code como se fosse uma máquina local.
 
@@ -8,36 +8,35 @@ Um container Docker com Linux completo onde o Claude Code opera como agente aut�
 
 ## Por que usar um container?
 
-O Claude Code é um agente que **executa comandos reais** no sistema operacional. Ele instala pacotes, cria e deleta arquivos, roda scripts, sobe serviços. No seu Windows diretamente, isso significa dar a uma IA acesso ao seu sistema inteiro.
+O Claude Code é um agente que **executa comandos reais** no sistema operacional. Ele instala pacotes, cria e deleta arquivos, roda scripts, sobe serviços. Rodando direto na sua máquina, isso significa dar a uma IA acesso ao seu sistema inteiro.
 
 Com o Claude Code Jail, o agente tem controle total — mas dentro de uma sandbox. Se algo der errado, você destrói o container e recria em minutos. Seus arquivos, seu sistema operacional e seus dados pessoais ficam intocados.
 
 O que você ganha:
 
-- **Segurança** — o agente não toca no seu Windows
+- **Segurança** — o agente não toca no seu sistema
 - **Reprodutibilidade** — ambiente consistente, sempre igual
 - **Liberdade** — o Claude Code pode instalar o que quiser sem pedir permissão
 - **Persistência** — projetos, configuração e login sobrevivem a restarts
 - **Docker-in-Docker** — o agente pode subir containers dentro do container (bancos, caches, APIs)
 
-> **Plataforma:** este projeto funciona em qualquer sistema com Docker (Windows, Linux, macOS), mas a documentação atual cobre apenas **Windows**. Suporte a Linux e macOS será adicionado em breve.
+> **Plataforma:** funciona em Windows, macOS e Linux — qualquer sistema que rode Docker + VS Code.
 
 ---
 
 ## Pré-requisitos
 
-- Windows 10/11 com Docker Desktop instalado e rodando
+- Docker Desktop (Windows/macOS) ou Docker Engine (Linux)
 - VS Code com a extensão **Dev Containers** da Microsoft
-- Hyper-V ativo (necessário para Docker Desktop)
 - Conta no [claude.ai](https://claude.ai) com plano Pro, Max, Team ou Enterprise
 
-> **Nota:** Se você usa Valorant ou jogos com anti-cheat, veja a seção sobre Hyper-V no [tutorial do container](docs/claude-code-container-tutorial.md#pré-requisitos).
+> **Windows:** Hyper-V precisa estar ativo. Detalhes e nota sobre anti-cheat no [tutorial do container](docs/claude-code-container-tutorial.md#pré-requisitos).
 
 ---
 
 ## Início rápido
 
-```powershell
+```bash
 # 1. Clone o repositório
 git clone https://github.com/SEU-USUARIO/claude-code-jail.git
 cd claude-code-jail
@@ -45,9 +44,10 @@ cd claude-code-jail
 # 2. Suba o container (primeiro build leva 3-5 minutos)
 docker compose up --build
 
-# 3. No VS Code: Ctrl+Shift+P → "Dev Containers: Attach to Running Container" → claude-jail
+# 3. No VS Code: Ctrl+Shift+P (Cmd+Shift+P no macOS)
+#    → "Dev Containers: Attach to Running Container" → claude-jail
 
-# 4. No terminal integrado do VS Code (Ctrl+`):
+# 4. No terminal integrado do VS Code (Ctrl+` / Cmd+`):
 cd /workspace
 claude
 ```
@@ -100,10 +100,10 @@ Como desenvolver projetos reais com disciplina de engenharia de software usando 
 
 ## Fluxo do dia a dia
 
-```powershell
+```bash
 # Ligar
 docker compose up -d
-# VS Code: Ctrl+Shift+P → Attach to Running Container → claude-jail
+# VS Code: Ctrl+Shift+P (Cmd+Shift+P no macOS) → Attach to Running Container → claude-jail
 # Terminal: cd /workspace && claude
 
 # Desligar
@@ -116,7 +116,7 @@ Projetos, login e imagens Docker internas persistem automaticamente entre restar
 
 ## Portas disponíveis
 
-Aplicações rodando no container são acessíveis diretamente no Windows:
+Aplicações rodando no container são acessíveis diretamente na sua máquina via `localhost`:
 
 | Porta | Uso típico |
 |-------|------------|
