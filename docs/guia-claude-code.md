@@ -1,6 +1,6 @@
 # Guia Completo — Claude Code
 
-> **Parte do projeto [Claude Code Jail](README.md)** — veja também: [Setup do Container](claude-code-container-tutorial.md) · [Guia SDD](guia-sdd-claude-code.md)
+> **Parte do projeto [Claude Code Jail](../README.md)** — veja também: [Setup do Container](claude-code-container-tutorial.md) · [Guia SDD](guia-sdd-claude-code.md)
 
 ## Do básico ao avançado, do mais importante ao menos importante
 

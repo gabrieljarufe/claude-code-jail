@@ -20,6 +20,8 @@ O que você ganha:
 - **Persistência** — projetos, configuração e login sobrevivem a restarts
 - **Docker-in-Docker** — o agente pode subir containers dentro do container (bancos, caches, APIs)
 
+> **Plataforma:** este projeto funciona em qualquer sistema com Docker (Windows, Linux, macOS), mas a documentação atual cobre apenas **Windows**. Suporte a Linux e macOS será adicionado em breve.
+
 ---
 
 ## Pré-requisitos
@@ -29,7 +31,7 @@ O que você ganha:
 - Hyper-V ativo (necessário para Docker Desktop)
 - Conta no [claude.ai](https://claude.ai) com plano Pro, Max, Team ou Enterprise
 
-> **Nota:** Se você usa Valorant ou jogos com anti-cheat, veja a seção sobre Hyper-V no [tutorial do container](claude-code-container-tutorial.md#pré-requisitos).
+> **Nota:** Se você usa Valorant ou jogos com anti-cheat, veja a seção sobre Hyper-V no [tutorial do container](docs/claude-code-container-tutorial.md#pré-requisitos).
 
 ---
 
@@ -50,7 +52,7 @@ cd /workspace
 claude
 ```
 
-Na primeira execução, o Claude Code vai pedir autenticação. Siga o [passo a passo completo](claude-code-container-tutorial.md#passo-6--autenticar-o-claude-code-com-seu-plano-pro) se precisar de ajuda.
+Na primeira execução, o Claude Code vai pedir autenticação. Siga o [passo a passo completo](docs/claude-code-container-tutorial.md#passo-6--autenticar-o-claude-code-com-seu-plano-pro) se precisar de ajuda.
 
 ---
 
@@ -58,15 +60,16 @@ Na primeira execução, o Claude Code vai pedir autenticação. Siga o [passo a 
 
 ```
 claude-code-jail/
-├── README.md                          ← você está aqui
-├── Dockerfile                         ← imagem base do container
-├── docker-compose.yml                 ← orquestração e volumes
-├── entrypoint.sh                      ← inicialização do Docker-in-Docker
+├── README.md                            ← você está aqui
+├── Dockerfile                           ← imagem base do container
+├── docker-compose.yml                   ← orquestração e volumes
+├── entrypoint.sh                        ← inicialização do Docker-in-Docker
 ├── .devcontainer/
-│   └── devcontainer.json              ← configuração do VS Code
-├── claude-code-container-tutorial.md  ← setup detalhado do ambiente
-├── guia-claude-code.md                ← como usar o Claude Code
-└── guia-sdd-claude-code.md            ← como desenvolver com disciplina
+│   └── devcontainer.json                ← configuração do VS Code
+└── docs/
+    ├── claude-code-container-tutorial.md ← setup detalhado do ambiente
+    ├── guia-claude-code.md              ← como usar o Claude Code
+    └── guia-sdd-claude-code.md          ← como desenvolver com disciplina
 ```
 
 ---
@@ -75,19 +78,19 @@ claude-code-jail/
 
 O projeto inclui três guias que se complementam. Leia na ordem sugerida:
 
-### 1. [Setup do Container](claude-code-container-tutorial.md)
+### 1. [Setup do Container](docs/claude-code-container-tutorial.md)
 
 Tudo sobre o ambiente Docker: como funciona o Dockerfile, os volumes, as portas expostas, a autenticação, o fluxo do dia a dia e o que persiste entre restarts. Comece por aqui se é a primeira vez.
 
 **Cobre:** Dockerfile, docker-compose, Dev Containers, autenticação, Docker-in-Docker, portas, persistência.
 
-### 2. [Guia Claude Code](guia-claude-code.md)
+### 2. [Guia Claude Code](docs/guia-claude-code.md)
 
 Como usar o Claude Code de forma eficiente: os três modos de operação (conversa, bash, comandos), como dar boas instruções, gerenciamento de contexto, CLAUDE.md, skills reutilizáveis, Sonnet vs Opus, e fluxos de trabalho para projetos novos e existentes.
 
 **Cobre:** modos de uso, instruções eficientes, `@` referências, CLAUDE.md, skills, `/clear`, `/compact`, Sonnet vs Opus, fluxo de trabalho.
 
-### 3. [Guia SDD — Spec Driven Development](guia-sdd-claude-code.md)
+### 3. [Guia SDD — Spec Driven Development](docs/guia-sdd-claude-code.md)
 
 Como desenvolver projetos reais com disciplina de engenharia de software usando o Claude Code como par de pair programming. Baseado nas lições empíricas do projeto M.Akita Chronicles (274 commits, 8 dias, sistema em produção).
 
@@ -129,7 +132,7 @@ Aplicações rodando no container são acessíveis diretamente no Windows:
 
 ## Referências
 
-- [Artigo original do Akita OnRails](https://akitaonrails.com/2026/02/20/do-zero-a-pos-producao-em-1-semana-como-usar-ia-em-projetos-de-verdade-bastidores-do-the-m-akita-chronicles/) — a base empírica do guia SDD
+- [Artigo original do Akita OnRails](https://www.akitaonrails.com/2025/02/20/do-zero-a-pos-producao-em-1-semana-como-usar-ia-em-projetos-de-verdade) — a base empírica do guia SDD
 - [Documentação oficial do Claude Code](https://docs.claude.com/en/docs/claude-code)
 - [Extensão Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) — para conectar o VS Code ao container
 

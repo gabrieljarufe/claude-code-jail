@@ -1,6 +1,6 @@
 # Claude Code em Container Docker no Windows
 
-> **Parte do projeto [Claude Code Jail](README.md)** — veja também: [Guia Claude Code](guia-claude-code.md) · [Guia SDD](guia-sdd-claude-code.md)
+> **Parte do projeto [Claude Code Jail](../README.md)** — veja também: [Guia Claude Code](guia-claude-code.md) · [Guia SDD](guia-sdd-claude-code.md)
 
 ## O que você vai ter no final
 

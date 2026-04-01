@@ -1,6 +1,6 @@
 # Guia SDD (Spec Driven Development) com Claude Code
 
-> **Parte do projeto [Claude Code Jail](README.md)** — veja também: [Setup do Container](claude-code-container-tutorial.md) · [Guia Claude Code](guia-claude-code.md)
+> **Parte do projeto [Claude Code Jail](../README.md)** — veja também: [Setup do Container](claude-code-container-tutorial.md) · [Guia Claude Code](guia-claude-code.md)
 
 ## Guardrail permanente para projetos reais — do zero à produção
 
