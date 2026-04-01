@@ -1,0 +1,27 @@
+services:
+  claude-jail:
+    build: .
+    container_name: claude-jail
+    hostname: claude-jail
+    privileged: true
+    stdin_open: true
+    tty: true
+    volumes:
+      - workspace-data:/workspace
+      - claude-config:/root/.claude
+      - dind-storage:/var/lib/docker
+      - ./workspace:/workspace-windows
+    ports:
+      - "8080-8090:8080-8090"
+      - "3000:3000"
+      - "8000:8000"
+      - "5432:5432"
+      - "3306:3306"
+      - "6379:6379"
+      - "27017:27017"
+    restart: unless-stopped
+
+volumes:
+  workspace-data:
+  claude-config:
+  dind-storage:
