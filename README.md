@@ -38,7 +38,7 @@ O que você ganha:
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/SEU-USUARIO/claude-code-jail.git
+git clone https://github.com/gabrieljarufe/claude-code-jail.git
 cd claude-code-jail
 
 # 2. Suba o container (primeiro build leva 3-5 minutos)
