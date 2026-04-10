@@ -1,30 +1,20 @@
 # Claude Code Jail
 
+![GitHub repo size](https://img.shields.io/github/repo-size/gabrieljarufe/claude-code-jail?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/gabrieljarufe/claude-code-jail?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/gabrieljarufe/claude-code-jail?style=for-the-badge)
+![GitHub open issues](https://img.shields.io/github/issues/gabrieljarufe/claude-code-jail?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/gabrieljarufe/claude-code-jail?style=for-the-badge)
+
 Ambiente isolado para usar o Claude Code com poder total — sem risco para o seu sistema operacional.
 
 Um container Docker com Linux completo onde o Claude Code opera como agente autônomo: instala dependências, sobe bancos de dados, cria projetos, roda testes e deploya — tudo confinado dentro do container, acessível pelo VS Code como se fosse uma máquina local.
 
----
-
-## Por que usar um container?
-
-O Claude Code é um agente que **executa comandos reais** no sistema operacional. Ele instala pacotes, cria e deleta arquivos, roda scripts, sobe serviços. Rodando direto na sua máquina, isso significa dar a uma IA acesso ao seu sistema inteiro.
-
-Com o Claude Code Jail, o agente tem controle total — mas dentro de uma sandbox. Se algo der errado, você destrói o container e recria em minutos. Seus arquivos, seu sistema operacional e seus dados pessoais ficam intocados.
-
-O que você ganha:
-
-- **Segurança** — o agente não toca no seu sistema
-- **Reprodutibilidade** — ambiente consistente, sempre igual
-- **Liberdade** — o Claude Code pode instalar o que quiser sem pedir permissão
-- **Persistência** — projetos, configuração e login sobrevivem a restarts
-- **Docker-in-Docker** — o agente pode subir containers dentro do container (bancos, caches, APIs)
-
-> **Plataforma:** funciona em Windows, macOS e Linux — qualquer sistema que rode Docker + VS Code.
+Além do ambiente pronto, o projeto inclui três guias completos de setup, uso e metodologia — sem paywall.
 
 ---
 
-## Pré-requisitos
+## 💻 Pré-requisitos
 
 - Docker Desktop (Windows/macOS) ou Docker Engine (Linux)
 - VS Code com a extensão **Dev Containers** da Microsoft
@@ -34,7 +24,7 @@ O que você ganha:
 
 ---
 
-## Início rápido
+## 🚀 Início rápido
 
 ```bash
 # 1. Clone o repositório
@@ -54,27 +44,47 @@ claude
 
 Na primeira execução, o Claude Code vai pedir autenticação. Siga o [passo a passo completo](docs/claude-code-container-tutorial.md#passo-6--autenticar-o-claude-code-com-seu-plano-pro) se precisar de ajuda.
 
----
-
-## Estrutura do projeto
-
-```
-claude-code-jail/
-├── README.md                            ← você está aqui
-├── Dockerfile                           ← imagem base do container
-├── docker-compose.yml                   ← orquestração e volumes
-├── entrypoint.sh                        ← inicialização do Docker-in-Docker
-├── .devcontainer/
-│   └── devcontainer.json                ← configuração do VS Code
-└── docs/
-    ├── claude-code-container-tutorial.md ← setup detalhado do ambiente
-    ├── guia-claude-code.md              ← como usar o Claude Code
-    └── guia-sdd-claude-code.md          ← como desenvolver com disciplina
-```
+Pronto. A partir daqui, o Claude Code tem poder total — e o seu sistema está intocado.
 
 ---
 
-## Documentação
+## 🔄 Fluxo do dia a dia
+
+```bash
+# Ligar
+docker compose up -d
+# VS Code: Ctrl+Shift+P (Cmd+Shift+P no macOS) → Attach to Running Container → claude-jail
+# Terminal: cd /workspace && claude
+
+# Desligar
+docker compose stop
+```
+
+Projetos, login e imagens Docker internas persistem automaticamente entre restarts.
+
+---
+
+## Por que usar um container?
+
+O Claude Code é um agente que **executa comandos reais** no sistema operacional. Ele instala pacotes, cria e deleta arquivos, roda scripts, sobe serviços. Rodando direto na sua máquina, isso significa dar a uma IA acesso ao seu sistema inteiro.
+
+Com o Claude Code Jail, o agente tem controle total — mas dentro de uma sandbox. Se algo der errado, você destrói o container e recria em minutos. Seus arquivos, seu sistema operacional e seus dados pessoais ficam intocados.
+
+O que você ganha:
+
+- **Segurança** — o agente não toca no seu sistema
+- **Reprodutibilidade** — ambiente consistente, sempre igual
+- **Liberdade** — o Claude Code pode instalar o que quiser sem pedir permissão
+- **Persistência** — projetos, configuração e login sobrevivem a restarts
+- **Docker-in-Docker** — o agente pode subir containers dentro do container (bancos, caches, APIs)
+
+> Essa abordagem foi validada empiricamente no artigo de [Akita OnRails](https://akitaonrails.com/2026/02/20/do-zero-a-pos-producao-em-1-semana-como-usar-ia-em-projetos-de-verdade-bastidores-do-the-m-akita-chronicles/): 274 commits, 8 dias, sistema em produção.
+
+> **Plataforma:** funciona em Windows, macOS e Linux — qualquer sistema que rode Docker + VS Code.
+
+---
+
+## 📚 Documentação
 
 O projeto inclui três guias que se complementam. Leia na ordem sugerida:
 
@@ -98,23 +108,7 @@ Como desenvolver projetos reais com disciplina de engenharia de software usando 
 
 ---
 
-## Fluxo do dia a dia
-
-```bash
-# Ligar
-docker compose up -d
-# VS Code: Ctrl+Shift+P (Cmd+Shift+P no macOS) → Attach to Running Container → claude-jail
-# Terminal: cd /workspace && claude
-
-# Desligar
-docker compose stop
-```
-
-Projetos, login e imagens Docker internas persistem automaticamente entre restarts.
-
----
-
-## Portas disponíveis
+## 🌐 Portas disponíveis
 
 Aplicações rodando no container são acessíveis diretamente na sua máquina via `localhost`:
 
@@ -130,7 +124,25 @@ Aplicações rodando no container são acessíveis diretamente na sua máquina v
 
 ---
 
-## Referências
+## 📁 Estrutura do projeto
+
+```
+claude-code-jail/
+├── README.md                            ← você está aqui
+├── Dockerfile                           ← imagem base do container
+├── docker-compose.yml                   ← orquestração e volumes
+├── entrypoint.sh                        ← inicialização do Docker-in-Docker
+├── .devcontainer/
+│   └── devcontainer.json                ← configuração do VS Code
+└── docs/
+    ├── claude-code-container-tutorial.md ← setup detalhado do ambiente
+    ├── guia-claude-code.md              ← como usar o Claude Code
+    └── guia-sdd-claude-code.md          ← como desenvolver com disciplina
+```
+
+---
+
+## 📎 Referências
 
 - [Artigo original do Akita OnRails](https://akitaonrails.com/2026/02/20/do-zero-a-pos-producao-em-1-semana-como-usar-ia-em-projetos-de-verdade-bastidores-do-the-m-akita-chronicles/) — a base empírica do guia SDD
 - [Documentação oficial do Claude Code](https://docs.claude.com/en/docs/claude-code)
@@ -138,6 +150,16 @@ Aplicações rodando no container são acessíveis diretamente na sua máquina v
 
 ---
 
-## Licença
+## 🤝 Contribuindo
+
+1. Fork este repositório
+2. Crie sua branch: `git checkout -b minha-feature`
+3. Faça suas alterações e commit: `git commit -m 'feat: minha feature'`
+4. Envie para o remote: `git push origin minha-feature`
+5. Abra um Pull Request
+
+---
+
+## 📝 Licença
 
 MIT
