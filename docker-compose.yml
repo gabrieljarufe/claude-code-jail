@@ -11,6 +11,7 @@ services:
       - claude-config:/root/.claude
       - dind-storage:/var/lib/docker
       - ./workspace:/workspace-windows
+      - home-data:/root/persist
     ports:
       - "8080-8090:8080-8090"
       - "3000:3000"
@@ -25,3 +26,4 @@ volumes:
   workspace-data:
   claude-config:
   dind-storage:
+  home-data:
