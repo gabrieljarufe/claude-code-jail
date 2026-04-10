@@ -19,3 +19,6 @@ workspace/.claude.json
 
 # Docker build cache
 *.log
+
+# Claude Code local settings
+.claude/settings.local.json
