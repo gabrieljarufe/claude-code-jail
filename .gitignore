@@ -1,0 +1,24 @@
+# Credentials and secrets — never commit
+workspace/.ssh/
+workspace/.env
+workspace/.env.*
+workspace/**/.env
+workspace/**/.env.*
+workspace/**/secrets/
+workspace/**/credentials/
+
+# Claude Code auth token
+workspace/.claude.json
+
+# OS and editor noise
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Docker build cache
+*.log
+
+# Claude Code local settings
+.claude/settings.local.json
