@@ -26,7 +26,7 @@ Create a skill when:
 - You've found an efficient workflow for a specific stack or tool.
 - You've built a useful code pattern that applies across projects.
 
-Skill files must be self-contained — another session should be able to follow the skill without additional context.
+Skill files must be self-contained step-by-step instructions with example usage — another session should be able to follow the skill without additional context.
 
 ## Workspace Hygiene
 
@@ -38,11 +38,10 @@ Skill files must be self-contained — another session should be able to follow 
 ## Session Start Protocol
 
 At the beginning of every new session:
-1. Read this workspace's `CLAUDE.md`.
-2. Check `plans/` for any approved but incomplete plans.
-3. Check `tasks/` for any `in-progress` or `pending` tasks.
-4. Report to the operator: "Here's where we left off: [summary]".
-5. Wait for instructions before acting.
+1. Check `plans/` for any approved but incomplete plans.
+2. Check `tasks/` for any `in-progress` or `pending` tasks.
+3. Report to the operator: "Here's where we left off: [summary]".
+4. Wait for instructions before acting.
 
 ## Session End Protocol
 
@@ -52,20 +51,3 @@ Before ending a session:
 3. Note any blockers or next steps in the relevant task file.
 4. Summarize what was accomplished and what remains.
 
-## Directory Reference
-
-```
-.claude/
-├── specs/
-│   ├── business/      ← business requirements (what & why)
-│   ├── stack/         ← technology choices (with what)
-│   ├── product/       ← user-facing features (for whom)
-│   └── architecture/  ← ADRs, cumulative design decisions
-├── plans/             ← technical synthesis docs (agent reads specs → writes plan)
-├── tasks/
-│   └── <feature>/     ← atomic execution units, generated from plan
-│       ├── 001-slug.md
-│       └── done/
-├── skills/            ← reusable patterns learned across projects
-└── references/        ← research notes and findings
-```

@@ -39,7 +39,6 @@ Every task follows this loop. Never skip phases. Never collapse layers.
 - Present the plan to the operator.
 - Highlight assumed premises and points of uncertainty — these are the most important review items.
 - **DO NOT PROCEED until the operator explicitly approves.**
-- If the plan is rejected: identify which spec is missing detail, enrich the spec, re-synthesize the plan.
 - Format:
   ```
   ⏸️ CHECKPOINT — Awaiting approval
@@ -67,11 +66,10 @@ Every task follows this loop. Never skip phases. Never collapse layers.
 ## Project Initialization
 
 **New project (empty directory or fresh repo):**
-1. Ask for: project name, purpose, stack preferences, constraints.
-2. Create business-spec and stack-spec before writing any code.
-3. Initialize git, create `.gitignore`, `README.md`, project `CLAUDE.md`.
-4. Create `.claude/` with the standard directory structure.
-5. Run the SDD loop for initial setup as the first plan.
+1. Run `/workspace/new-project.sh <name>` to scaffold the structure.
+2. Ask for: project name, purpose, stack preferences, constraints.
+3. Create business-spec and stack-spec in `<project>/.claude/specs/` before writing any code.
+4. Run the SDD loop for initial setup as the first plan.
 
 **Resuming existing project:**
 1. Read the project's `CLAUDE.md` and `.claude/` contents.
@@ -88,44 +86,66 @@ Every task follows this loop. Never skip phases. Never collapse layers.
 - **Never** generate tasks before plan approval.
 - When in doubt, ask. Silence is not approval.
 
-## Skill & Reference Management
-
-**Skills** (`.claude/skills/`): create when you solve the same problem 2+ times. Self-contained step-by-step instructions with example usage.
-
-**References** (`.claude/references/`): save research findings after any non-trivial investigation. Include: date, question, summary, details, sources, status.
-
 ## File Organization
 
+Two domains coexist: **global** (agnostic to any project) and **project** (specific).
+
 ```
-/workspace/
-├── CLAUDE.md                        ← Agent brain (this file)
-├── .claude/
-│   ├── settings.json                ← Permissions and environment config
-│   ├── rules/                       ← Modular behavioral rules
-│   │   ├── sdd-flow.md              ← Layered SDD flow details
-│   │   ├── research.md              ← Research guidelines
-│   │   └── organization.md          ← Self-organization rules
-│   ├── templates/                   ← Document templates
-│   │   ├── business-spec.md
-│   │   ├── stack-spec.md
-│   │   ├── product-spec.md
-│   │   ├── architecture-spec.md
-│   │   ├── plan.md
-│   │   └── task.md
-│   ├── specs/
-│   │   ├── business/                ← What & why
-│   │   ├── stack/                   ← With what
-│   │   ├── product/                 ← For whom
-│   │   └── architecture/            ← How to structure (ADRs)
-│   ├── plans/                       ← Technical synthesis, one per initiative
-│   ├── tasks/
-│   │   └── <feature-name>/          ← Atomic tasks generated from plan
-│   ├── skills/                      ← Reusable learned patterns
-│   └── references/                  ← Research notes
+/workspace/                            ← volume root — Claude always runs here
+├── CLAUDE.md          → symlink       → claude-code-jail/brain/CLAUDE.md
+├── new-project.sh     → symlink       → claude-code-jail/brain/new-project.sh
+├── .claude/                           ← GLOBAL domain (agnostic to any project)
+│   ├── settings.json  → symlink       → brain/.claude/settings.json
+│   ├── rules/         → symlink       → brain/.claude/rules/
+│   ├── templates/     → symlink       → brain/.claude/templates/
+│   ├── skills/        → symlink       → brain/.claude/skills/
+│   ├── references/    → symlink       → brain/.claude/references/
+│   ├── plans/         → symlink       → brain/.claude/plans/
+│   └── tasks/         → symlink       → brain/.claude/tasks/
 │
-├── <project-a>/
-│   ├── CLAUDE.md
-│   ├── .claude/                     ← Same structure as above, project-scoped
-│   └── src/
-└── <project-b>/
+├── claude-code-jail/                  ← infra repo (Dockerfile, compose, brain source)
+│   └── brain/
+│       ├── CLAUDE.md                  ← source of truth (versioned)
+│       ├── new-project.sh
+│       └── .claude/
+│           ├── settings.json
+│           ├── rules/
+│           ├── templates/
+│           ├── skills/                ← agnostic skills, committed when learned
+│           ├── references/            ← agnostic research findings
+│           ├── plans/                 ← infra / cross-project plans
+│           └── tasks/                 ← infra / cross-project tasks
+│
+└── <project-name>/                    ← PROJECT domain (independent git repo)
+    ├── CLAUDE.md                      ← project-specific context only
+    └── .claude/
+        ├── rules/                     ← project-specific rules
+        ├── templates/                 ← project-specific templates
+        ├── skills/                    ← project-specific skills
+        ├── references/                ← project-specific research
+        ├── plans/                     ← project plans
+        ├── tasks/                     ← project tasks
+        └── specs/
+            ├── business/              ← What & why
+            ├── stack/                 ← With what
+            ├── product/               ← For whom
+            └── architecture/          ← ADRs
+```
+
+### Domain Rules
+
+| Category | Global (`/workspace/.claude/`) | Project (`/workspace/<proj>/.claude/`) |
+|----------|-------------------------------|----------------------------------------|
+| rules | Apply to any project | Apply only to this project |
+| templates | Generic document templates | Customized for this project |
+| skills | Reusable across projects | Used only in this project |
+| references | Agnostic research (tools, infra) | Domain-specific research |
+| plans | Infra / cross-project plans | Feature plans |
+| tasks | Infra / cross-project tasks | Feature tasks |
+| specs | _(does not exist globally)_ | specs/{business,stack,product,architecture} |
+
+### Creating a new project
+
+```bash
+/workspace/new-project.sh my-project
 ```
