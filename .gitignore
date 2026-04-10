@@ -10,6 +10,9 @@ workspace/**/credentials/
 # Claude Code auth token
 workspace/.claude.json
 
+# Claude Code local permissions — runtime-accumulated, not versioned
+.claude/settings.local.json
+
 # OS and editor noise
 .DS_Store
 *.swp
