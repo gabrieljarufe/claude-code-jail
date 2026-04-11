@@ -12,7 +12,7 @@ services:
       - workspace-data:/workspace
       - claude-config:/root/.claude
       - dind-storage:/var/lib/docker
-      - ./workspace:/workspace-windows
+      - ./workspace:/workspace-os
       - home-data:/root/persist
     ports:
       - "8080-8090:8080-8090"
