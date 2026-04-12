@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     curl wget git vim nano build-essential \
     ca-certificates gnupg lsb-release \
-    openssh-client zsh htop unzip \
+    openssh-client htop unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Node.js (obrigatório pro Claude Code)
