@@ -22,6 +22,11 @@ RUN npm install -g @anthropic-ai/claude-code
 
 WORKDIR /workspace
 
+# Agent instructions baked into the image (outside the /workspace volume)
+COPY CLAUDE.md /opt/claude-jail/CLAUDE.md
+COPY github-setup.sh /opt/claude-jail/github-setup.sh
+RUN chmod +x /opt/claude-jail/github-setup.sh
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
