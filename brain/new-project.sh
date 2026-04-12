@@ -34,10 +34,7 @@ cat > CLAUDE.md << EOF
 [Add any constraints or conventions specific to this project]
 EOF
 
-mkdir -p .claude/{rules,templates,skills,references,plans,tasks}
-mkdir -p .claude/specs/{business,stack,product,architecture}
-
-git add -A
+mkdir -p .claude/{plans,tasks,specs,skills,references}
 
 # Ensure git identity is set before committing
 GIT_NAME=$(git config --global user.name 2>/dev/null || true)
@@ -57,6 +54,7 @@ if [ -z "$GIT_NAME" ] || [ -z "$GIT_EMAIL" ]; then
     echo ""
 fi
 
+git add CLAUDE.md .gitignore .claude
 git commit -m "chore: initialize project structure"
 
 echo ""
