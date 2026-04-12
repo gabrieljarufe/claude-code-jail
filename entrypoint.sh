@@ -8,6 +8,7 @@ if [ -d "$BRAIN" ]; then
     ln -sf "$BRAIN/CLAUDE.md" /workspace/CLAUDE.md
     mkdir -p /workspace/.claude
     for item in rules templates skills references plans tasks settings.json; do
+        rm -rf "/workspace/.claude/$item"
         ln -sf "$BRAIN/.claude/$item" "/workspace/.claude/$item"
     done
     ln -sf "$BRAIN/new-project.sh" /workspace/new-project.sh
