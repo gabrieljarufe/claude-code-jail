@@ -37,10 +37,20 @@ docker compose up --build
 # 3. No VS Code: Ctrl+Shift+P (Cmd+Shift+P no macOS)
 #    → "Dev Containers: Attach to Running Container" → claude-jail
 
-# 4. No terminal integrado do VS Code (Ctrl+` / Cmd+`):
+# 4. No terminal integrado do container, clone o repo para popular o brain:
+cd /workspace
+git clone https://github.com/gabrieljarufe/claude-code-jail.git
+
+# 5. Reinicie o container para ativar os symlinks do brain:
+#    (no host) docker compose restart
+#    (depois re-attach no VS Code)
+
+# 6. No terminal do container:
 cd /workspace
 claude
 ```
+
+> O passo 4 só é necessário na primeira vez. O conteúdo de `/workspace` persiste no volume `workspace-data` entre restarts.
 
 Na primeira execução, o Claude Code vai pedir autenticação. Siga o [passo a passo completo](docs/claude-code-container-tutorial.md#passo-6--autenticar-o-claude-code-com-seu-plano-pro) se precisar de ajuda.
 
