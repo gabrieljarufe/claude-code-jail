@@ -1,76 +1,54 @@
-# Plan: [FEATURE / INITIATIVE NAME]
+# Plan: [NAME]
 
 - Date: YYYY-MM-DD
 - Status: draft | approved | executing | completed
-- Specs de entrada:
-  - `specs/business/YYYYMMDD-slug.md`
-  - `specs/product/YYYYMMDD-slug.md`
-  - `specs/stack/YYYYMMDD-slug.md`
-  - `specs/architecture/YYYYMMDD-slug.md` (se aplicável)
+- Input specs (if any):
+  - `specs/spec-<slug>.md`
+  - `specs/stack.md`
+  - `specs/architecture.md`
 
----
+## Scope
 
-## Escopo Técnico
+What will be built. Translate specs into implementation language.
 
-> Tradução das specs para linguagem de implementação.
-> O que será construído, em qual camada, com qual abordagem.
+## Out of Scope
 
-### O que entra neste plano
+- …
 
-- Item 1
-- Item 2
+## Assumed Premises
 
-### O que NÃO entra (fora de escopo)
+What the agent inferred that was not explicit in the specs.
+If any premise is wrong, correct the spec before approving the plan.
 
-- Item 1
+| # | Premise | Source spec | Confidence |
+|---|---------|-------------|------------|
+| 1 | | | high / med / low |
 
----
+## Points of Uncertainty
 
-## Premissas Assumidas
+Gaps that must be resolved BEFORE execution. Rejection of this plan usually lives here.
 
-> O que o agente inferiu que não estava escrito explicitamente nas specs.
-> Se alguma premissa estiver errada, corrija a spec antes de aprovar este plan.
-
-| # | Premissa | Spec de origem | Confiança |
-|---|----------|----------------|-----------|
-| 1 | | | alta / média / baixa |
-
----
-
-## Pontos de Incerteza
-
-> Onde faltou contexto nas specs. Estes pontos devem ser resolvidos ANTES da execução.
-> Se este plan for rejeitado, a causa provável está aqui.
-
-| # | Dúvida | Impacto | Ação necessária |
-|---|--------|---------|-----------------|
-| 1 | | alto / médio / baixo | Enriquecer spec X com detalhe Y |
-
----
+| # | Question | Impact | Action |
+|---|----------|--------|--------|
+| 1 | | high / med / low | enrich spec X with Y |
 
 ## Task List
 
-> Apenas títulos e dependências. Os detalhes ficam nos arquivos de task individuais.
-> Gerado automaticamente pelo agente após aprovação deste plan.
+Titles and dependencies only. Task files are generated after approval.
 
-| # | Task | Depende de | Arquivo |
-|---|------|-----------|---------|
-| 1 | [título da task] | — | `tasks/feature-name/001-slug.md` |
-| 2 | [título da task] | #1 | `tasks/feature-name/002-slug.md` |
+| # | Task | Depends on | File |
+|---|------|------------|------|
+| 1 | | — | `tasks/<feature>/001-<slug>.md` |
 
----
+## Technical Risks
 
-## Riscos Técnicos
-
-| Risco | Impacto | Mitigação |
-|-------|---------|-----------|
-| | alto / médio / baixo | |
-
----
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| | | |
 
 ## Checkpoint
 
-- [ ] Operador revisou premissas assumidas
-- [ ] Operador revisou pontos de incerteza
-- [ ] Task list aprovada
-- [ ] **Aprovado por:** ___ em YYYY-MM-DD
+- [ ] Premises reviewed
+- [ ] Uncertainties resolved
+- [ ] Task list approved
+- [ ] Approved by: ___ on YYYY-MM-DD
